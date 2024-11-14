@@ -3,7 +3,7 @@ name: No Caching Tests
 on:
   push:
     branches:
-      - master
+      - master-no-cache
 
 jobs:
   no-caching-tests:
