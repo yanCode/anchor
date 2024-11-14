@@ -5,21 +5,21 @@ on:
     inputs:
       cache:
         required: true
-        type: string
+        type: boolean
       solana_cli_version:
         required: true
         type: string
       node_version:
         required: true
         type: string
-      cargo_profile:
+      cargo_profile: 
         required: true
         type: string
       anchor_binary_name:
         required: true
         type: string
 env:
-  CACHE: true
+  CACHE: ${{ inputs.cache }}
   SOLANA_CLI_VERSION: ${{ inputs.solana_cli_version }}
   NODE_VERSION: ${{ inputs.node_version }}
   CARGO_PROFILE: ${{ inputs.cargo_profile }}
