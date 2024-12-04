@@ -2514,17 +2514,13 @@ const miscTest = (
       });
 
       it("With bumps using find_program_address", async () => {
-        const firstPDA = (
-          anchor.web3.PublicKey.findProgramAddressSync(
-            [anchor.utils.bytes.utf8.encode("seed")],
-            ASSOCIATED_TOKEN_PROGRAM_ID
-          )
+        const firstPDA = anchor.web3.PublicKey.findProgramAddressSync(
+          [anchor.utils.bytes.utf8.encode("seed")],
+          ASSOCIATED_TOKEN_PROGRAM_ID
         )[0];
-        const secondPDA = (
-          anchor.web3.PublicKey.findProgramAddressSync(
-            [anchor.utils.bytes.utf8.encode("seed")],
-            program.programId
-          )
+        const secondPDA = anchor.web3.PublicKey.findProgramAddressSync(
+          [anchor.utils.bytes.utf8.encode("seed")],
+          program.programId
         )[0];
 
         // random wrong address

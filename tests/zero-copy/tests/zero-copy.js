@@ -96,10 +96,7 @@ describe("zero-copy", () => {
     });
 
     const bar = PublicKey.findProgramAddressSync(
-      [
-        program.provider.wallet.publicKey.toBuffer(),
-        foo.publicKey.toBuffer(),
-      ],
+      [program.provider.wallet.publicKey.toBuffer(), foo.publicKey.toBuffer()],
       program.programId
     )[0];
     const barAccount = await program.account.bar.fetch(bar);
@@ -111,10 +108,7 @@ describe("zero-copy", () => {
 
   it("Updates an associated zero copy account", async () => {
     const bar = PublicKey.findProgramAddressSync(
-      [
-        program.provider.wallet.publicKey.toBuffer(),
-        foo.publicKey.toBuffer(),
-      ],
+      [program.provider.wallet.publicKey.toBuffer(), foo.publicKey.toBuffer()],
       program.programId
     )[0];
     await program.rpc.updateBar(new BN(99), {

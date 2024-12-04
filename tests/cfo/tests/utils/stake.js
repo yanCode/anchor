@@ -35,10 +35,11 @@ const WHITELIST_SIZE = 10;
 
 async function setupStakePool(mint, god) {
   // Registry genesis.
-  const [_registrarSigner, _nonce] = anchor.web3.PublicKey.findProgramAddressSync(
-    [registrar.publicKey.toBuffer()],
-    registry.programId
-  );
+  const [_registrarSigner, _nonce] =
+    anchor.web3.PublicKey.findProgramAddressSync(
+      [registrar.publicKey.toBuffer()],
+      registry.programId
+    );
   registrarSigner = _registrarSigner;
   nonce = _nonce;
   poolMint = await serumCmn.createMint(provider, registrarSigner);

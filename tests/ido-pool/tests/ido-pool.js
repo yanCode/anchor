@@ -293,15 +293,14 @@ describe("ido-pool", () => {
     secondUserUsdcAccount = await getTokenAccount(provider, secondUserUsdc);
     assert.isTrue(secondUserUsdcAccount.amount.eq(secondDeposit));
 
-    const [secondUserRedeemable] =
-      anchor.web3.PublicKey.findProgramAddressSync(
-        [
-          secondUserKeypair.publicKey.toBuffer(),
-          Buffer.from(idoName),
-          Buffer.from("user_redeemable"),
-        ],
-        program.programId
-      );
+    const [secondUserRedeemable] = anchor.web3.PublicKey.findProgramAddressSync(
+      [
+        secondUserKeypair.publicKey.toBuffer(),
+        Buffer.from(idoName),
+        Buffer.from("user_redeemable"),
+      ],
+      program.programId
+    );
 
     await program.rpc.exchangeUsdcForRedeemable(secondDeposit, {
       accounts: {
@@ -483,15 +482,14 @@ describe("ido-pool", () => {
       program.programId
     );
 
-    const [secondUserRedeemable] =
-      anchor.web3.PublicKey.findProgramAddressSync(
-        [
-          secondUserKeypair.publicKey.toBuffer(),
-          Buffer.from(idoName),
-          Buffer.from("user_redeemable"),
-        ],
-        program.programId
-      );
+    const [secondUserRedeemable] = anchor.web3.PublicKey.findProgramAddressSync(
+      [
+        secondUserKeypair.publicKey.toBuffer(),
+        Buffer.from(idoName),
+        Buffer.from("user_redeemable"),
+      ],
+      program.programId
+    );
 
     const [poolWatermelon] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("pool_watermelon")],

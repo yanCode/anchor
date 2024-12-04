@@ -143,11 +143,10 @@ async function registrarInit(
   const rewardQ = anchor.web3.Keypair.generate();
   const withdrawalTimelock = new anchor.BN(_withdrawalTimelock);
   const stakeRate = new anchor.BN(_stakeRate);
-  const [registrarSigner, nonce] =
-    anchor.web3.PublicKey.findProgramAddressSync(
-      [registrar.publicKey.toBuffer()],
-      registry.programId
-    );
+  const [registrarSigner, nonce] = anchor.web3.PublicKey.findProgramAddressSync(
+    [registrar.publicKey.toBuffer()],
+    registry.programId
+  );
   const poolMint = await serumCmn.createMint(
     registry.provider,
     registrarSigner
