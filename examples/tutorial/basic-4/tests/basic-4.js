@@ -13,7 +13,7 @@ describe("basic-4", () => {
   let counterPubkey;
 
   before(async () => {
-    [counterPubkey] = await anchor.web3.PublicKey.findProgramAddress(
+    [counterPubkey] = anchor.web3.PublicKey.findProgramAddressSync(
       [counterSeed],
       program.programId
     );

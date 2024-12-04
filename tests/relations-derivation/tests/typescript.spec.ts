@@ -24,12 +24,10 @@ describe("typescript", () => {
   it("Derives relationss", async () => {
     const tx = await program.methods.testRelation().accounts({
       nested: {
-        account: (
-          await PublicKey.findProgramAddress(
-            [Buffer.from("seed", "utf-8")],
-            program.programId
-          )
-        )[0],
+        account: PublicKey.findProgramAddressSync(
+          [Buffer.from("seed", "utf-8")],
+          program.programId
+        ),
       },
     });
 

@@ -144,7 +144,7 @@ async function registrarInit(
   const withdrawalTimelock = new anchor.BN(_withdrawalTimelock);
   const stakeRate = new anchor.BN(_stakeRate);
   const [registrarSigner, nonce] =
-    await anchor.web3.PublicKey.findProgramAddress(
+    anchor.web3.PublicKey.findProgramAddressSync(
       [registrar.publicKey.toBuffer()],
       registry.programId
     );

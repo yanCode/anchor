@@ -82,14 +82,12 @@ describe("zero-copy", () => {
   it("Creates an associated zero copy account", async () => {
     await program.rpc.createBar({
       accounts: {
-        bar: (
-          await PublicKey.findProgramAddress(
-            [
-              program.provider.wallet.publicKey.toBuffer(),
-              foo.publicKey.toBuffer(),
-            ],
-            program.programId
-          )
+        bar: PublicKey.findProgramAddressSync(
+          [
+            program.provider.wallet.publicKey.toBuffer(),
+            foo.publicKey.toBuffer(),
+          ],
+          program.programId
         )[0],
         authority: program.provider.wallet.publicKey,
         foo: foo.publicKey,
@@ -97,14 +95,12 @@ describe("zero-copy", () => {
       },
     });
 
-    const bar = (
-      await PublicKey.findProgramAddress(
-        [
-          program.provider.wallet.publicKey.toBuffer(),
-          foo.publicKey.toBuffer(),
-        ],
-        program.programId
-      )
+    const bar = PublicKey.findProgramAddressSync(
+      [
+        program.provider.wallet.publicKey.toBuffer(),
+        foo.publicKey.toBuffer(),
+      ],
+      program.programId
     )[0];
     const barAccount = await program.account.bar.fetch(bar);
     assert.isTrue(
@@ -114,14 +110,12 @@ describe("zero-copy", () => {
   });
 
   it("Updates an associated zero copy account", async () => {
-    const bar = (
-      await PublicKey.findProgramAddress(
-        [
-          program.provider.wallet.publicKey.toBuffer(),
-          foo.publicKey.toBuffer(),
-        ],
-        program.programId
-      )
+    const bar = PublicKey.findProgramAddressSync(
+      [
+        program.provider.wallet.publicKey.toBuffer(),
+        foo.publicKey.toBuffer(),
+      ],
+      program.programId
     )[0];
     await program.rpc.updateBar(new BN(99), {
       accounts: {

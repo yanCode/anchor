@@ -38,7 +38,7 @@ describe("cashiers-check", () => {
   let checkSigner = null;
 
   it("Creates a check!", async () => {
-    let [_checkSigner, nonce] = await anchor.web3.PublicKey.findProgramAddress(
+    let [_checkSigner, nonce] = anchor.web3.PublicKey.findProgramAddressSync(
       [check.publicKey.toBuffer()],
       program.programId
     );

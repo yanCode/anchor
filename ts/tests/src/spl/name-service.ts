@@ -30,7 +30,7 @@ export async function nameServiceTests() {
   async function create() {
     const HASHED_NAME = getHashedName(NAME);
     const seeds = [HASHED_NAME, Buffer.alloc(32), Buffer.alloc(32)];
-    [nameAccountPk] = await PublicKey.findProgramAddress(
+    [nameAccountPk] = PublicKey.findProgramAddressSync(
       seeds,
       program.programId
     );

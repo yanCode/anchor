@@ -34,7 +34,7 @@ describe("chat", () => {
 
   it("Creates a user", async () => {
     const authority = program.provider.wallet.publicKey;
-    const [user, bump] = await PublicKey.findProgramAddress(
+    const [user, bump] = PublicKey.findProgramAddressSync(
       [authority.toBuffer()],
       program.programId
     );
@@ -52,11 +52,9 @@ describe("chat", () => {
 
   it("Sends messages", async () => {
     const authority = program.provider.wallet.publicKey;
-    const user = (
-      await PublicKey.findProgramAddress(
-        [authority.toBuffer()],
-        program.programId
-      )
+    const user = PublicKey.findProgramAddressSync(
+      [authority.toBuffer()],
+      program.programId
     )[0];
 
     // Only send a couple messages so the test doesn't take an eternity.

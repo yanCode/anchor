@@ -273,7 +273,7 @@ export function isCompositeAccounts(
 
 // Deterministic IDL address as a function of the program id.
 export async function idlAddress(programId: PublicKey): Promise<PublicKey> {
-  const base = (await PublicKey.findProgramAddress([], programId))[0];
+  const base = PublicKey.findProgramAddressSync([], programId)[0];
   return await PublicKey.createWithSeed(base, seed(), programId);
 }
 

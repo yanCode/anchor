@@ -226,11 +226,9 @@ export async function createTokenAccount(
 }
 
 export async function getAta(mintPk: PublicKey, ownerPk: PublicKey) {
-  return (
-    await PublicKey.findProgramAddress(
-      [ownerPk.toBuffer(), SPL_TOKEN_PROGRAM_ID.toBuffer(), mintPk.toBuffer()],
-      SPL_ATA_PROGRAM_ID
-    )
+  return PublicKey.findProgramAddressSync(
+    [ownerPk.toBuffer(), SPL_TOKEN_PROGRAM_ID.toBuffer(), mintPk.toBuffer()],
+    SPL_ATA_PROGRAM_ID
   )[0];
 }
 

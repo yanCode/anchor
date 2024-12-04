@@ -22,7 +22,7 @@ describe("spl-associated-token-coder", () => {
     // arrange
     const mintKeypair = Keypair.generate();
     const mintDecimals = 6;
-    const [associatedToken] = await PublicKey.findProgramAddress(
+    const [associatedToken] = PublicKey.findProgramAddressSync(
       [
         provider.publicKey.toBuffer(),
         tokenProgram.programId.toBuffer(),

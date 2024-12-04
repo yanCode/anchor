@@ -128,11 +128,11 @@ describe("cfo", () => {
   });
 
   it("BOILERPLATE: Finds PDA addresses", async () => {
-    const [_officer, _officerBump] = await PublicKey.findProgramAddress(
+    const [_officer, _officerBump] = PublicKey.findProgramAddressSync(
       [DEX_PID.toBuffer()],
       program.programId
     );
-    const [_openOrders, _openOrdersBump] = await PublicKey.findProgramAddress(
+    const [_openOrders, _openOrdersBump] = PublicKey.findProgramAddressSync(
       [
         utf8.encode("open-orders"),
         _officer.toBuffer(),
@@ -140,7 +140,7 @@ describe("cfo", () => {
       ],
       program.programId
     );
-    const [_openOrdersB, _openOrdersBumpB] = await PublicKey.findProgramAddress(
+    const [_openOrdersB, _openOrdersBumpB] = PublicKey.findProgramAddressSync(
       [
         utf8.encode("open-orders"),
         _officer.toBuffer(),
@@ -148,7 +148,7 @@ describe("cfo", () => {
       ],
       program.programId
     );
-    const [_srmVault, _srmBump] = await PublicKey.findProgramAddress(
+    const [_srmVault, _srmBump] = PublicKey.findProgramAddressSync(
       [
         utf8.encode("token"),
         _officer.toBuffer(),
@@ -156,7 +156,7 @@ describe("cfo", () => {
       ],
       program.programId
     );
-    const [_bVault, _bBump] = await PublicKey.findProgramAddress(
+    const [_bVault, _bBump] = PublicKey.findProgramAddressSync(
       [
         utf8.encode("token"),
         _officer.toBuffer(),
@@ -164,7 +164,7 @@ describe("cfo", () => {
       ],
       program.programId
     );
-    const [_usdcVault, _usdcBump] = await PublicKey.findProgramAddress(
+    const [_usdcVault, _usdcBump] = PublicKey.findProgramAddressSync(
       [
         utf8.encode("token"),
         _officer.toBuffer(),
@@ -172,15 +172,15 @@ describe("cfo", () => {
       ],
       program.programId
     );
-    const [_stake, _stakeBump] = await PublicKey.findProgramAddress(
+    const [_stake, _stakeBump] = PublicKey.findProgramAddressSync(
       [utf8.encode("stake"), _officer.toBuffer()],
       program.programId
     );
-    const [_treasury, _treasuryBump] = await PublicKey.findProgramAddress(
+    const [_treasury, _treasuryBump] = PublicKey.findProgramAddressSync(
       [utf8.encode("treasury"), _officer.toBuffer()],
       program.programId
     );
-    const [_marketAuth, _marketAuthBump] = await PublicKey.findProgramAddress(
+    const [_marketAuth, _marketAuthBump] = PublicKey.findProgramAddressSync(
       [
         utf8.encode("market-auth"),
         _officer.toBuffer(),
@@ -188,7 +188,7 @@ describe("cfo", () => {
       ],
       program.programId
     );
-    const [_marketAuthB, _marketAuthBumpB] = await PublicKey.findProgramAddress(
+    const [_marketAuthB, _marketAuthBumpB] = PublicKey.findProgramAddressSync(
       [
         utf8.encode("market-auth"),
         _officer.toBuffer(),
@@ -306,7 +306,7 @@ describe("cfo", () => {
   });
 
   it("Sweeps fees", async () => {
-    const [sweepVault, bump] = await PublicKey.findProgramAddress(
+    const [sweepVault, bump] = PublicKey.findProgramAddressSync(
       [utf8.encode("token"), officer.toBuffer(), ORDERBOOK_ENV.usdc.toBuffer()],
       program.programId
     );
