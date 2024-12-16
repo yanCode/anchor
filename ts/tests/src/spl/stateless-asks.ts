@@ -42,7 +42,7 @@ export async function statelessAsksTests() {
     const makerSize = new BN(500);
     const takerSize = new BN(400);
 
-    const [authorityPk, bump] = await PublicKey.findProgramAddress(
+    const [authorityPk, bump] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("stateless_offer"),
         makerPk.toBuffer(),

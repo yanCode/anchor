@@ -149,11 +149,10 @@ describe("Lockup and Registry", () => {
     const depositAmount = new anchor.BN(100);
 
     const vault = anchor.web3.Keypair.generate();
-    let [_vestingSigner, nonce] =
-      await anchor.web3.PublicKey.findProgramAddress(
-        [vesting.publicKey.toBuffer()],
-        lockup.programId
-      );
+    let [_vestingSigner, nonce] = anchor.web3.PublicKey.findProgramAddressSync(
+      [vesting.publicKey.toBuffer()],
+      lockup.programId
+    );
     vestingSigner = _vestingSigner;
 
     await lockup.rpc.createVesting(
@@ -276,7 +275,7 @@ describe("Lockup and Registry", () => {
 
   it("Creates registry genesis", async () => {
     const [_registrarSigner, _nonce] =
-      await anchor.web3.PublicKey.findProgramAddress(
+      anchor.web3.PublicKey.findProgramAddressSync(
         [registrar.publicKey.toBuffer()],
         registry.programId
       );
@@ -347,11 +346,10 @@ describe("Lockup and Registry", () => {
   let balancesLocked = null;
 
   it("Creates a member", async () => {
-    const [_memberSigner, nonce] =
-      await anchor.web3.PublicKey.findProgramAddress(
-        [registrar.publicKey.toBuffer(), member.publicKey.toBuffer()],
-        registry.programId
-      );
+    const [_memberSigner, nonce] = anchor.web3.PublicKey.findProgramAddressSync(
+      [registrar.publicKey.toBuffer(), member.publicKey.toBuffer()],
+      registry.programId
+    );
     memberSigner = _memberSigner;
 
     const [mainTx, _balances] = await utils.createBalanceSandbox(
@@ -476,11 +474,10 @@ describe("Lockup and Registry", () => {
     };
     const rewardAmount = new anchor.BN(200);
     const expiry = new anchor.BN(Date.now() / 1000 + 5);
-    const [_vendorSigner, nonce] =
-      await anchor.web3.PublicKey.findProgramAddress(
-        [registrar.publicKey.toBuffer(), unlockedVendor.publicKey.toBuffer()],
-        registry.programId
-      );
+    const [_vendorSigner, nonce] = anchor.web3.PublicKey.findProgramAddressSync(
+      [registrar.publicKey.toBuffer(), unlockedVendor.publicKey.toBuffer()],
+      registry.programId
+    );
     unlockedVendorSigner = _vendorSigner;
 
     await registry.rpc.dropReward(
@@ -595,11 +592,10 @@ describe("Lockup and Registry", () => {
     };
     lockedRewardAmount = new anchor.BN(200);
     const expiry = new anchor.BN(Date.now() / 1000 + 5);
-    const [_vendorSigner, nonce] =
-      await anchor.web3.PublicKey.findProgramAddress(
-        [registrar.publicKey.toBuffer(), lockedVendor.publicKey.toBuffer()],
-        registry.programId
-      );
+    const [_vendorSigner, nonce] = anchor.web3.PublicKey.findProgramAddressSync(
+      [registrar.publicKey.toBuffer(), lockedVendor.publicKey.toBuffer()],
+      registry.programId
+    );
     lockedVendorSigner = _vendorSigner;
 
     await registry.rpc.dropReward(
@@ -674,11 +670,10 @@ describe("Lockup and Registry", () => {
   it("Claims a locked reward", async () => {
     vendoredVesting = anchor.web3.Keypair.generate();
     vendoredVestingVault = anchor.web3.Keypair.generate();
-    let [_vendoredVestingSigner, nonce] =
-      await anchor.web3.PublicKey.findProgramAddress(
-        [vendoredVesting.publicKey.toBuffer()],
-        lockup.programId
-      );
+    let [_vendoredVestingSigner, nonce] = anchor.web3.PublicKey.findProgramAddressSync(
+      [vendoredVesting.publicKey.toBuffer()],
+      lockup.programId
+    );
     vendoredVestingSigner = _vendoredVestingSigner;
     const remainingAccounts = lockup.instruction.createVesting
       .accounts({

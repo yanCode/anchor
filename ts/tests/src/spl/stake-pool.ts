@@ -59,7 +59,7 @@ export async function stakePoolTests() {
     const createStakePoolAccountIx =
       await program.account.stakePool.createInstruction(stakePoolKp, 5000);
 
-    [withdrawAuthorityPk] = await PublicKey.findProgramAddress(
+    [withdrawAuthorityPk] = PublicKey.findProgramAddressSync(
       [stakePoolPk.toBuffer(), Buffer.from("withdraw")],
       program.programId
     );
@@ -153,12 +153,12 @@ export async function stakePoolTests() {
       votePubkey: voteAccountKp.publicKey,
     }).instructions;
 
-    [stakeAccountPk] = await PublicKey.findProgramAddress(
+    [stakeAccountPk] = PublicKey.findProgramAddressSync(
       [voteAccountPk.toBuffer(), stakePoolPk.toBuffer()],
       program.programId
     );
 
-    [transientStakePk] = await PublicKey.findProgramAddress(
+    [transientStakePk] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("transient"),
         voteAccountPk.toBuffer(),
@@ -261,16 +261,14 @@ export async function stakePoolTests() {
         stakePoolWithdrawAuthority: withdrawAuthorityPk,
         validatorList: validatorListPk,
         validatorStake: stakeAccountPk,
-        transientStake: (
-          await PublicKey.findProgramAddress(
-            [
-              Buffer.from("transient"),
-              voteAccountPk.toBuffer(),
-              stakePoolPk.toBuffer(),
-              new BN(TRANSIENT_STAKE_SEED + 1).toBuffer("le", 8),
-            ],
-            program.programId
-          )
+        transientStake: PublicKey.findProgramAddressSync(
+          [
+            Buffer.from("transient"),
+            voteAccountPk.toBuffer(),
+            stakePoolPk.toBuffer(),
+            new BN(TRANSIENT_STAKE_SEED + 1).toBuffer("le", 8),
+          ],
+          program.programId
         )[0],
         clock: SYSVAR_CLOCK_PUBKEY,
         rent: SYSVAR_RENT_PUBKEY,
@@ -335,7 +333,7 @@ export async function stakePoolTests() {
   async function depositStake() {
     const DEPOSIT_AMOUNT = LAMPORTS_PER_SOL;
 
-    const [poolDepositAuthorityPk] = await PublicKey.findProgramAddress(
+    const [poolDepositAuthority] = PublicKey.findProgramAddressSync(
       [stakePoolPk.toBuffer(), Buffer.from("deposit")],
       program.programId
     );

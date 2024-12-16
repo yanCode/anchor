@@ -35,19 +35,19 @@ export async function featureProposalTests() {
     const featureProposalKp = new Keypair();
     featureProposalPk = featureProposalKp.publicKey;
 
-    const [mintPk] = await PublicKey.findProgramAddress(
+    const [mintPk] = PublicKey.findProgramAddressSync(
       [featureProposalPk.toBuffer(), Buffer.from("mint")],
       program.programId
     );
-    const [distributorTokenAccountPk] = await PublicKey.findProgramAddress(
+    const [distributorTokenAccountPk] = PublicKey.findProgramAddressSync(
       [featureProposalPk.toBuffer(), Buffer.from("distributor")],
       program.programId
     );
-    [acceptanceTokenAccountPk] = await PublicKey.findProgramAddress(
+    [acceptanceTokenAccountPk] = PublicKey.findProgramAddressSync(
       [featureProposalPk.toBuffer(), Buffer.from("acceptance")],
       program.programId
     );
-    [featureIdPk] = await PublicKey.findProgramAddress(
+    [featureIdPk] = PublicKey.findProgramAddressSync(
       [featureProposalPk.toBuffer(), Buffer.from("feature-id")],
       program.programId
     );

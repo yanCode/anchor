@@ -87,7 +87,7 @@ describe("auction-house", () => {
     );
 
     // Create the metadata.
-    const [_metadata] = await PublicKey.findProgramAddress(
+    const [_metadata] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("metadata"),
         TOKEN_METADATA_PROGRAM_ID.toBuffer(),
@@ -149,11 +149,11 @@ describe("auction-house", () => {
   });
 
   it("Initializes constants", async () => {
-    const [_auctionHouse] = await PublicKey.findProgramAddress(
+    const [_auctionHouse] = PublicKey.findProgramAddressSync(
       [PREFIX, authority.toBuffer(), treasuryMint.toBuffer()],
       AUCTION_HOUSE_PROGRAM_ID
     );
-    const [_auctionHouseFeeAccount] = await PublicKey.findProgramAddress(
+    const [_auctionHouseFeeAccount] = PublicKey.findProgramAddressSync(
       [PREFIX, _auctionHouse.toBuffer(), FEE_PAYER],
       AUCTION_HOUSE_PROGRAM_ID
     );
@@ -317,11 +317,11 @@ describe("auction-house", () => {
   });
 
   it("Executes a trade", async () => {
-    const [buyerEscrow] = await PublicKey.findProgramAddress(
+    const [buyerEscrow] = PublicKey.findProgramAddressSync(
       [PREFIX, auctionHouse.toBuffer(), buyerWallet.publicKey.toBuffer()],
       AUCTION_HOUSE_PROGRAM_ID
     );
-    const [auctionHouseTreasury] = await PublicKey.findProgramAddress(
+    const [auctionHouseTreasury] = PublicKey.findProgramAddressSync(
       [PREFIX, auctionHouse.toBuffer(), TREASURY],
       AUCTION_HOUSE_PROGRAM_ID
     );

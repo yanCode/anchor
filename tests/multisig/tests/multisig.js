@@ -10,7 +10,7 @@ describe("multisig", () => {
   it("Tests the multisig program", async () => {
     const multisig = anchor.web3.Keypair.generate();
     const [multisigSigner, nonce] =
-      await anchor.web3.PublicKey.findProgramAddress(
+      anchor.web3.PublicKey.findProgramAddressSync(
         [multisig.publicKey.toBuffer()],
         program.programId
       );

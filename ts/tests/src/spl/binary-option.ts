@@ -61,16 +61,14 @@ export async function binaryOptionTests() {
     longTokenMintPk = longMintKp.publicKey;
     shortTokenMintPk = shortMintKp.publicKey;
 
-    escrowAuthorityPk = (
-      await PublicKey.findProgramAddress(
-        [
-          longTokenMintPk.toBuffer(),
-          shortTokenMintPk.toBuffer(),
-          SPL_TOKEN_PROGRAM_ID.toBuffer(),
-          SPL_BINARY_OPTION_PROGRAM_ID.toBuffer(),
-        ],
-        SPL_BINARY_OPTION_PROGRAM_ID
-      )
+    escrowAuthorityPk = PublicKey.findProgramAddressSync(
+      [
+        longTokenMintPk.toBuffer(),
+        shortTokenMintPk.toBuffer(),
+        SPL_TOKEN_PROGRAM_ID.toBuffer(),
+        SPL_BINARY_OPTION_PROGRAM_ID.toBuffer(),
+      ],
+      SPL_BINARY_OPTION_PROGRAM_ID
     )[0];
 
     await program.methods

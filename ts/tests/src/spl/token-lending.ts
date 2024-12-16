@@ -170,11 +170,9 @@ export async function tokenLendingTests() {
     const userTransferAuthorityKp = new Keypair();
     sourceLiquidityPk = await createAta(NATIVE_MINT_PK, kp.publicKey);
 
-    lendingMarketAuthorityPk = (
-      await PublicKey.findProgramAddress(
-        [lendingMarketPk.toBuffer()],
-        program.programId
-      )
+    lendingMarketAuthorityPk = PublicKey.findProgramAddressSync(
+      [lendingMarketPk.toBuffer()],
+      program.programId
     )[0];
 
     const approveIx = await tokenProgram.methods

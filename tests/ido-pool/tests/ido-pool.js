@@ -73,28 +73,28 @@ describe("ido-pool", () => {
     let bumps = new PoolBumps();
 
     const [idoAccount, idoAccountBump] =
-      await anchor.web3.PublicKey.findProgramAddress(
+      anchor.web3.PublicKey.findProgramAddressSync(
         [Buffer.from(idoName)],
         program.programId
       );
     bumps.idoAccount = idoAccountBump;
 
     const [redeemableMint, redeemableMintBump] =
-      await anchor.web3.PublicKey.findProgramAddress(
+      anchor.web3.PublicKey.findProgramAddressSync(
         [Buffer.from(idoName), Buffer.from("redeemable_mint")],
         program.programId
       );
     bumps.redeemableMint = redeemableMintBump;
 
     const [poolWatermelon, poolWatermelonBump] =
-      await anchor.web3.PublicKey.findProgramAddress(
+      anchor.web3.PublicKey.findProgramAddressSync(
         [Buffer.from(idoName), Buffer.from("pool_watermelon")],
         program.programId
       );
     bumps.poolWatermelon = poolWatermelonBump;
 
     const [poolUsdc, poolUsdcBump] =
-      await anchor.web3.PublicKey.findProgramAddress(
+      anchor.web3.PublicKey.findProgramAddressSync(
         [Buffer.from(idoName), Buffer.from("pool_usdc")],
         program.programId
       );
@@ -148,17 +148,17 @@ describe("ido-pool", () => {
       await sleep(idoTimes.startIdo.toNumber() * 1000 - Date.now() + 2000);
     }
 
-    const [idoAccount] = await anchor.web3.PublicKey.findProgramAddress(
+    const [idoAccount] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName)],
       program.programId
     );
 
-    const [redeemableMint] = await anchor.web3.PublicKey.findProgramAddress(
+    const [redeemableMint] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("redeemable_mint")],
       program.programId
     );
 
-    const [poolUsdc] = await anchor.web3.PublicKey.findProgramAddress(
+    const [poolUsdc] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("pool_usdc")],
       program.programId
     );
@@ -193,7 +193,7 @@ describe("ido-pool", () => {
     userUsdcAccount = await getTokenAccount(provider, userUsdc);
     assert.isTrue(userUsdcAccount.amount.eq(firstDeposit));
 
-    const [userRedeemable] = await anchor.web3.PublicKey.findProgramAddress(
+    const [userRedeemable] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         provider.wallet.publicKey.toBuffer(),
         Buffer.from(idoName),
@@ -242,17 +242,17 @@ describe("ido-pool", () => {
   let totalPoolUsdc, secondUserKeypair, secondUserUsdc;
 
   it("Exchanges a second users USDC for redeemable tokens", async () => {
-    const [idoAccount] = await anchor.web3.PublicKey.findProgramAddress(
+    const [idoAccount] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName)],
       program.programId
     );
 
-    const [redeemableMint] = await anchor.web3.PublicKey.findProgramAddress(
+    const [redeemableMint] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("redeemable_mint")],
       program.programId
     );
 
-    const [poolUsdc] = await anchor.web3.PublicKey.findProgramAddress(
+    const [poolUsdc] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("pool_usdc")],
       program.programId
     );
@@ -293,15 +293,14 @@ describe("ido-pool", () => {
     secondUserUsdcAccount = await getTokenAccount(provider, secondUserUsdc);
     assert.isTrue(secondUserUsdcAccount.amount.eq(secondDeposit));
 
-    const [secondUserRedeemable] =
-      await anchor.web3.PublicKey.findProgramAddress(
-        [
-          secondUserKeypair.publicKey.toBuffer(),
-          Buffer.from(idoName),
-          Buffer.from("user_redeemable"),
-        ],
-        program.programId
-      );
+    const [secondUserRedeemable] = anchor.web3.PublicKey.findProgramAddressSync(
+      [
+        secondUserKeypair.publicKey.toBuffer(),
+        Buffer.from(idoName),
+        Buffer.from("user_redeemable"),
+      ],
+      program.programId
+    );
 
     await program.rpc.exchangeUsdcForRedeemable(secondDeposit, {
       accounts: {
@@ -344,22 +343,22 @@ describe("ido-pool", () => {
   const firstWithdrawal = new anchor.BN(2_000_000);
 
   it("Exchanges user Redeemable tokens for USDC", async () => {
-    const [idoAccount] = await anchor.web3.PublicKey.findProgramAddress(
+    const [idoAccount] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName)],
       program.programId
     );
 
-    const [redeemableMint] = await anchor.web3.PublicKey.findProgramAddress(
+    const [redeemableMint] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("redeemable_mint")],
       program.programId
     );
 
-    const [poolUsdc] = await anchor.web3.PublicKey.findProgramAddress(
+    const [poolUsdc] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("pool_usdc")],
       program.programId
     );
 
-    const [userRedeemable] = await anchor.web3.PublicKey.findProgramAddress(
+    const [userRedeemable] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         provider.wallet.publicKey.toBuffer(),
         Buffer.from(idoName),
@@ -368,7 +367,7 @@ describe("ido-pool", () => {
       program.programId
     );
 
-    const [escrowUsdc] = await anchor.web3.PublicKey.findProgramAddress(
+    const [escrowUsdc] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         provider.wallet.publicKey.toBuffer(),
         Buffer.from(idoName),
@@ -416,22 +415,22 @@ describe("ido-pool", () => {
       await sleep(idoTimes.endIdo.toNumber() * 1000 - Date.now() + 3000);
     }
 
-    const [idoAccount] = await anchor.web3.PublicKey.findProgramAddress(
+    const [idoAccount] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName)],
       program.programId
     );
 
-    const [poolWatermelon] = await anchor.web3.PublicKey.findProgramAddress(
+    const [poolWatermelon] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("pool_watermelon")],
       program.programId
     );
 
-    const [redeemableMint] = await anchor.web3.PublicKey.findProgramAddress(
+    const [redeemableMint] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("redeemable_mint")],
       program.programId
     );
 
-    const [userRedeemable] = await anchor.web3.PublicKey.findProgramAddress(
+    const [userRedeemable] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         provider.wallet.publicKey.toBuffer(),
         Buffer.from(idoName),
@@ -473,27 +472,26 @@ describe("ido-pool", () => {
   });
 
   it("Exchanges second user's Redeemable tokens for watermelon", async () => {
-    const [idoAccount] = await anchor.web3.PublicKey.findProgramAddress(
+    const [idoAccount] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName)],
       program.programId
     );
 
-    const [redeemableMint] = await anchor.web3.PublicKey.findProgramAddress(
+    const [redeemableMint] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("redeemable_mint")],
       program.programId
     );
 
-    const [secondUserRedeemable] =
-      await anchor.web3.PublicKey.findProgramAddress(
-        [
-          secondUserKeypair.publicKey.toBuffer(),
-          Buffer.from(idoName),
-          Buffer.from("user_redeemable"),
-        ],
-        program.programId
-      );
+    const [secondUserRedeemable] = anchor.web3.PublicKey.findProgramAddressSync(
+      [
+        secondUserKeypair.publicKey.toBuffer(),
+        Buffer.from(idoName),
+        Buffer.from("user_redeemable"),
+      ],
+      program.programId
+    );
 
-    const [poolWatermelon] = await anchor.web3.PublicKey.findProgramAddress(
+    const [poolWatermelon] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("pool_watermelon")],
       program.programId
     );
@@ -523,12 +521,12 @@ describe("ido-pool", () => {
   });
 
   it("Withdraws total USDC from pool account", async () => {
-    const [idoAccount] = await anchor.web3.PublicKey.findProgramAddress(
+    const [idoAccount] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName)],
       program.programId
     );
 
-    const [poolUsdc] = await anchor.web3.PublicKey.findProgramAddress(
+    const [poolUsdc] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName), Buffer.from("pool_usdc")],
       program.programId
     );
@@ -557,12 +555,12 @@ describe("ido-pool", () => {
       await sleep(idoTimes.endEscrow.toNumber() * 1000 - Date.now() + 4000);
     }
 
-    const [idoAccount] = await anchor.web3.PublicKey.findProgramAddress(
+    const [idoAccount] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from(idoName)],
       program.programId
     );
 
-    const [escrowUsdc] = await anchor.web3.PublicKey.findProgramAddress(
+    const [escrowUsdc] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         provider.wallet.publicKey.toBuffer(),
         Buffer.from(idoName),

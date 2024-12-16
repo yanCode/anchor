@@ -203,7 +203,7 @@ describe('game', async () => {
   const program = anchor.workspace.Game as Program<Game>
 
   it('Sets and changes name!', async () => {
-    const [userStatsPDA, _] = await PublicKey.findProgramAddress(
+    const [userStatsPDA] = PublicKey.findProgramAddressSync(
       [
         anchor.utils.bytes.utf8.encode('user-stats'),
         provider.wallet.publicKey.toBuffer(),
@@ -325,7 +325,7 @@ describe('puppet', () => {
 
   it('Does CPI!', async () => {
     const [puppetMasterPDA, puppetMasterBump] =
-      await PublicKey.findProgramAddress([], puppetMasterProgram.programId)
+      PublicKey.findProgramAddressSync([], puppetMasterProgram.programId)
 
     await puppetProgram.methods
       .initialize(puppetMasterPDA)

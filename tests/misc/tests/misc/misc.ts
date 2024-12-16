@@ -459,7 +459,7 @@ const miscTest = (
     it("Can use instruction data in accounts constraints", async () => {
       // b"my-seed"
       const seed = Buffer.from([109, 121, 45, 115, 101, 101, 100]);
-      const [myPda, nonce] = await PublicKey.findProgramAddress(
+      const [myPda, nonce] = PublicKey.findProgramAddressSync(
         [seed, anchor.web3.SYSVAR_RENT_PUBKEY.toBuffer()],
         program.programId
       );
@@ -476,7 +476,7 @@ const miscTest = (
       const seed = Buffer.from([1, 2, 3, 4]);
       const domain = "my-domain";
       const foo = anchor.web3.SYSVAR_RENT_PUBKEY;
-      const [myPda, nonce] = await PublicKey.findProgramAddress(
+      const [myPda, nonce] = PublicKey.findProgramAddressSync(
         [
           Buffer.from(anchor.utils.bytes.utf8.encode("my-seed")),
           Buffer.from(anchor.utils.bytes.utf8.encode(domain)),
@@ -500,7 +500,7 @@ const miscTest = (
     });
 
     it("Can create a zero copy PDA account", async () => {
-      const [myPda, nonce] = await PublicKey.findProgramAddress(
+      const [myPda, nonce] = PublicKey.findProgramAddressSync(
         [Buffer.from(anchor.utils.bytes.utf8.encode("my-seed"))],
         program.programId
       );
@@ -518,7 +518,7 @@ const miscTest = (
     });
 
     it("Can write to a zero copy PDA account", async () => {
-      const [myPda, bump] = await PublicKey.findProgramAddress(
+      const [myPda, bump] = PublicKey.findProgramAddressSync(
         [Buffer.from(anchor.utils.bytes.utf8.encode("my-seed"))],
         program.programId
       );
@@ -535,11 +535,11 @@ const miscTest = (
     });
 
     it("Can create a token account from seeds pda", async () => {
-      const [mint, mint_bump] = await PublicKey.findProgramAddress(
+      const [mint, mint_bump] = PublicKey.findProgramAddressSync(
         [Buffer.from(anchor.utils.bytes.utf8.encode("my-mint-seed"))],
         program.programId
       );
-      const [myPda, token_bump] = await PublicKey.findProgramAddress(
+      const [myPda, token_bump] = PublicKey.findProgramAddressSync(
         [Buffer.from(anchor.utils.bytes.utf8.encode("my-token-seed"))],
         program.programId
       );
@@ -1267,7 +1267,7 @@ const miscTest = (
     });
 
     it("Can use pdas with empty seeds", async () => {
-      const [pda, bump] = await PublicKey.findProgramAddress(
+      const [pda, bump] = PublicKey.findProgramAddressSync(
         [],
         program.programId
       );
@@ -1285,7 +1285,7 @@ const miscTest = (
         },
       });
 
-      const [pda2] = await PublicKey.findProgramAddress(
+      const [pda2] = PublicKey.findProgramAddressSync(
         [anchor.utils.bytes.utf8.encode("non-empty")],
         program.programId
       );
@@ -1654,7 +1654,7 @@ const miscTest = (
     });
 
     it("init_if_needed throws if account exists but is not owned by the expected program", async () => {
-      const newAcc = await anchor.web3.PublicKey.findProgramAddress(
+      const newAcc = anchor.web3.PublicKey.findProgramAddressSync(
         [utf8.encode("hello")],
         program.programId
       );
@@ -1685,7 +1685,7 @@ const miscTest = (
     });
 
     it("init_if_needed throws if pda account exists but does not have the expected seeds", async () => {
-      const newAcc = await anchor.web3.PublicKey.findProgramAddress(
+      const newAcc = anchor.web3.PublicKey.findProgramAddressSync(
         [utf8.encode("nothello")],
         program.programId
       );
@@ -2463,12 +2463,12 @@ const miscTest = (
     describe("Can validate PDAs derived from other program ids", () => {
       it("With bumps using create_program_address", async () => {
         const [firstPDA, firstBump] =
-          await anchor.web3.PublicKey.findProgramAddress(
+          anchor.web3.PublicKey.findProgramAddressSync(
             [anchor.utils.bytes.utf8.encode("seed")],
             ASSOCIATED_TOKEN_PROGRAM_ID
           );
         const [secondPDA, secondBump] =
-          await anchor.web3.PublicKey.findProgramAddress(
+          anchor.web3.PublicKey.findProgramAddressSync(
             [anchor.utils.bytes.utf8.encode("seed")],
             program.programId
           );
@@ -2514,17 +2514,13 @@ const miscTest = (
       });
 
       it("With bumps using find_program_address", async () => {
-        const firstPDA = (
-          await anchor.web3.PublicKey.findProgramAddress(
-            [anchor.utils.bytes.utf8.encode("seed")],
-            ASSOCIATED_TOKEN_PROGRAM_ID
-          )
+        const firstPDA = anchor.web3.PublicKey.findProgramAddressSync(
+          [anchor.utils.bytes.utf8.encode("seed")],
+          ASSOCIATED_TOKEN_PROGRAM_ID
         )[0];
-        const secondPDA = (
-          await anchor.web3.PublicKey.findProgramAddress(
-            [anchor.utils.bytes.utf8.encode("seed")],
-            program.programId
-          )
+        const secondPDA = anchor.web3.PublicKey.findProgramAddressSync(
+          [anchor.utils.bytes.utf8.encode("seed")],
+          program.programId
         )[0];
 
         // random wrong address

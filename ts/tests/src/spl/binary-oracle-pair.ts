@@ -77,7 +77,7 @@ export async function binaryOraclePairTests() {
     const createTokenFailMintIx =
       await tokenProgram.account.mint.createInstruction(tokenFailMintKp);
 
-    const [authorityPk, bump] = await PublicKey.findProgramAddress(
+    const [authorityPk, bump] = PublicKey.findProgramAddressSync(
       [poolPk.toBuffer()],
       program.programId
     );

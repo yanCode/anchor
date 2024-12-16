@@ -14,7 +14,7 @@ describe("realloc", () => {
   let sample: anchor.web3.PublicKey;
 
   before(async () => {
-    [sample] = await anchor.web3.PublicKey.findProgramAddress(
+    [sample] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from("sample")],
       program.programId
     );

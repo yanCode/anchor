@@ -61,8 +61,9 @@ export async function tokenSwapTests() {
     const swapKp = new Keypair();
     swapPk = swapKp.publicKey;
 
-    swapAuthorityPk = (
-      await PublicKey.findProgramAddress([swapPk.toBuffer()], program.programId)
+    swapAuthorityPk = PublicKey.findProgramAddressSync(
+      [swapPk.toBuffer()],
+      program.programId
     )[0];
 
     const poolMintKp = new Keypair();
